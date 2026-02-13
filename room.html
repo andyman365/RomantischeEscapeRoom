@@ -7,34 +7,60 @@
 </head>
 <body class="room">
 
-    <!-- Kamer container -->
     <div class="room-container">
         <!-- Achtergrond afbeelding -->
         <img src="images/room.png" alt="Room" class="room-bg">
 
-        <!-- SVG overlay voor klikbare brief -->
+        <!-- SVG overlay -->
         <svg class="click-overlay" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
-            <rect x="620" y="460" width="280" height="85"
+            <rect id="letterRect"
+                  x="650" y="490" width="350" height="100"
                   fill="transparent"
                   stroke="rgba(255,0,0,0.3)" stroke-width="2"
-                  cursor="pointer"
-                  onclick="openLetter()"/>
+                  cursor="pointer"/>
         </svg>
     </div>
 
-    <!-- Popup voor de brief -->
+    <!-- Popup brief -->
     <div class="letter-popup" id="letterPopup">
         <img src="images/whistledown.png" alt="Brief">
-        <button onclick="closeLetter()">Close</button>
+        <button id="closeLetter">Close</button>
     </div>
 
     <script>
-        function openLetter() {
-            document.getElementById('letterPopup').style.display = 'block';
+        const letterRect = document.getElementById('letterRect');
+        const letterPopup = document.getElementById('letterPopup');
+        const closeLetterBtn = document.getElementById('closeLetter');
+        const roomImg = document.querySelector('.room-bg');
+
+        // originele viewBox coords
+        const orig = { x: 650, y: 490, width: 350, height: 100 };
+        const viewBoxWidth = 1200;
+        const viewBoxHeight = 800;
+
+        // functie om te schalen
+        function scaleRect() {
+            const scaleX = roomImg.clientWidth / viewBoxWidth;
+            const scaleY = roomImg.clientHeight / viewBoxHeight;
+
+            letterRect.setAttribute('x', orig.x * scaleX);
+            letterRect.setAttribute('y', orig.y * scaleY);
+            letterRect.setAttribute('width', orig.width * scaleX);
+            letterRect.setAttribute('height', orig.height * scaleY);
         }
-        function closeLetter() {
-            document.getElementById('letterPopup').style.display = 'none';
-        }
+
+        window.addEventListener('resize', scaleRect);
+        window.addEventListener('load', scaleRect);
+
+        // open popup
+        letterRect.addEventListener('click', () => {
+            letterPopup.style.display = 'block';
+        });
+
+        // sluit popup
+        closeLetterBtn.addEventListener('click', () => {
+            letterPopup.style.display = 'none';
+        });
     </script>
 </body>
 </html>

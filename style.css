@@ -6,7 +6,16 @@ body {
     text-align: center;
 }
 
-/* Landingpage styling */
+a, button {
+    font-family: inherit;
+    font-size: 1rem;
+    color: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Landingpage */
 body.landing-page {
     background: url('images/bg.png') center/cover no-repeat;
     background-size: cover;
@@ -61,21 +70,18 @@ header .btn:hover {
 /* Kamerpagina */
 .room-container {
     position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 66.66%; /* voorbeeld: 1200/800 = 1.5 → 66.66% */
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
 }
 
 .room-bg {
-    position: absolute;
-    top: 0; left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-/* SVG overlay */
 .click-overlay {
     position: absolute;
     top: 0;
@@ -85,7 +91,6 @@ header .btn:hover {
     z-index: 2;
 }
 
-/* Letter popup */
 .letter-popup {
     display: none;
     position: fixed;
