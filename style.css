@@ -32,20 +32,18 @@ body.landing-page {
 }
 
 body.landing-page header {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    position: relative;
 }
 
-/* Overlay volledig in het midden van de landingpage */
 body.landing-page header .overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: rgba(255, 245, 240, 0.7);
     padding: 50px;
     border-radius: 15px;
-    display: inline-block; /* box rond tekst */
+    display: inline-block;
     text-align: center;
 }
 
@@ -112,74 +110,135 @@ footer {
 /* =========================
    Kamerpagina styling
    ========================= */
-/* Kamerpagina container */
-.room {
-  position: relative; /* container voor absolute kinderen */
-  width: 100%;
-  height: 100vh;
-  background: url('images/room.png') center/cover no-repeat;
-  background-size: cover;
-  font-family: 'Playfair Display', serif;
-  color: #3d2c2a;
+
+/* Algemene kamerpagina settings */
+body.room,
+body.room-2,
+body.mystery-room {
+    position: relative; /* container voor absolute kinderen */
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    color: #3d2c2a;
+    font-family: 'Playfair Display', serif;
 }
 
-/* Full-screen overlay (licht gefaded) */
-.room::before {
-  content: '';
-  position: absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(255,245,240,0.3);
-  z-index: 0;
+/* Overlay voor alle kamers */
+body.room::before,
+body.room-2::before,
+body.mystery-room::before {
+    content: '';
+    position: absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(255,245,240,0.3);
+    z-index: 0;
 }
 
 /* Kamer header */
 .room-header {
-  position: relative;
-  z-index: 1;
-  padding: 30px 20px;
+    position: relative;
+    z-index: 1;
+    padding: 30px 20px;
 }
 
 /* Klikbare brief */
 .letter-btn {
-  position: absolute;
-  top: 420px;  /* pixelwaarde precies boven de brief in de achtergrond */
-  left: 580px; /* pixelwaarde precies boven de brief */
-  width: 60px;
-  height: 40px;
-  background: rgba(255,255,255,0.2);
-  border: 2px dashed #6b2d2a;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1;
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    border: 2px dashed #6b2d2a;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Eerste kamer: exacte briefpositie (desktop) */
+body.room .letter-btn {
+    top: 420px; /* pas aan op basis van je afbeelding */
+    left: 580px; /* pas aan op basis van je afbeelding */
 }
 
 /* Letter popup */
 .letter-popup {
-  display: none;
-  position: fixed;
-  top:50%;
-  left:50%;
-  transform: translate(-50%, -50%);
-  background: #fff0f5;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
-  z-index: 10;
+    display: none;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    z-index: 10;
 }
 
 .letter-popup img {
-  max-width: 400px;
+    max-width: 400px;
 }
 
 .letter-popup button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #6b2d2a;
-  color: #fff;
-  border-radius: 10px;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #6b2d2a;
+    color: #fff;
+    border-radius: 10px;
 }
 
 .letter-popup button:hover {
-  background: #8b5e58;
+    background: #8b5e58;
+}
+
+/* =========================
+   Unieke backgrounds per kamer
+   ========================= */
+body.room {
+    background: url('images/room.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+body.room-2 {
+    background: url('images/room2.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+body.mystery-room {
+    background: url('images/room3.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+/* =========================
+   Responsive / kleinere schermen
+   ========================= */
+@media (max-width: 1200px) {
+    body.room .letter-btn {
+        top: 360px;
+        left: 480px;
+    }
+}
+
+@media (max-width: 992px) {
+    body.room .letter-btn {
+        top: 320px;
+        left: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    body.room .letter-btn {
+        top: 280px;
+        left: 320px;
+        width: 50px;
+        height: 35px;
+    }
+
+    header .title {
+        font-size: 3rem;
+    }
+
+    header .subtitle {
+        font-size: 1.2rem;
+    }
 }
