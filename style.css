@@ -79,3 +79,74 @@ footer {
     color: #6b2d2a;
     font-style: italic;
 }
+/* Kamerpagina styles */
+.room-page {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    color: #3d2c2a;
+    background: #fff5f0;
+}
+
+/* Header */
+.room-page .room-header {
+    padding: 30px 20px;
+}
+
+/* Container voor de kamer */
+.room-page .room-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Room image */
+.room-page .room-image {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* Klikbare brief */
+.room-page .letter-btn {
+    position: absolute;
+    top: 65%;  /* pas aan op basis van je image */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px dashed #6b2d2a;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Popup brief */
+.room-page .letter-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+.room-page .letter-popup img {
+    max-width: 400px;
+}
+
+.room-page .letter-popup button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #6b2d2a;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.room-page .letter-popup button:hover {
+    background: #8b5e58;
+}
