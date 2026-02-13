@@ -1,28 +1,41 @@
-/* Fonts & basics */
+/* =========================
+   Algemene styling voor alle pagina's
+   ========================= */
+
+/* Body algemeen */
 body {
     margin: 0;
     font-family: 'Playfair Display', serif;
-    color: #3d2c2a;
-    background: #fff5f0;
-}
-
-/* Header */
-header {
-    position: relative;
-    height: 100vh;
-    background: url('images/bg.png') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    color: #3d2c2a; /* tekstkleur voor alle pagina's */
     text-align: center;
-    filter: brightness(1.2); /* Lichter: 1 is normaal, >1 lichter */
 }
 
-header .overlay {
-    background: rgba(255, 245, 240, 0.7); /* meer transparantie */
+/* Links / buttons algemeen */
+a, button {
+    font-family: inherit;
+    font-size: 1rem;
+    color: inherit;
+}
+
+/* =========================
+   Landingpage styling
+   ========================= */
+body.landing-page {
+    background: url('images/bg.png') center/cover no-repeat;
+    background-size: cover;
+    height: 100vh;
+    filter: brightness(1.2); /* lichter */
+    position: relative;
+}
+
+/* Overlay op landingpage voor tekst leesbaarheid */
+body.landing-page header .overlay {
+    background: rgba(255, 245, 240, 0.7);
     padding: 50px;
     border-radius: 15px;
 }
+
+/* Titel en subtitel landingpage */
 header .title {
     font-family: 'Great Vibes', cursive;
     font-size: 4rem;
@@ -38,6 +51,7 @@ header .subtitle {
     font-style: italic;
 }
 
+/* Landingpage knop */
 header .btn {
     text-decoration: none;
     background: #6b2d2a;
@@ -52,7 +66,9 @@ header .btn:hover {
     background: #8b5e58;
 }
 
-/* Content Section */
+/* =========================
+   Content / Footer algemeen
+   ========================= */
 .content {
     padding: 60px 20px;
     max-width: 800px;
@@ -71,7 +87,6 @@ header .btn:hover {
     text-align: center;
 }
 
-/* Footer */
 footer {
     background: #ffe5e0;
     padding: 20px;
@@ -79,54 +94,50 @@ footer {
     color: #6b2d2a;
     font-style: italic;
 }
-/* Room page */
-.room-page {
+
+/* =========================
+   Kamerpagina styling
+   ========================= */
+body.room-page {
     font-family: 'Playfair Display', serif;
     text-align: center;
     color: #3d2c2a;
-    background: url('images/room.png') center/cover no-repeat;
-    background-size: cover; /* ensures full coverage */
-    background-position: center;
     height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
-/* Optional overlay to make text and clickable letter visible */
-.room-page::before {
+/* Overlay voor leesbaarheid van tekst en klikbare items */
+body.room-page::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 245, 240, 0.3); /* subtle faded overlay */
-    z-index: 0;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(255,245,240,0.3);
+    z-index:0;
 }
 
-/* Room header */
+/* Kamer header */
 .room-page .room-header {
     position: relative;
     z-index: 1;
     padding: 30px 20px;
 }
 
-/* Clickable letter button */
+/* Klikbare letter knop */
 .room-page .letter-btn {
     position: absolute;
-    top: 65%;  /* adjust depending on room.png */
-    left: 50%;
     transform: translate(-50%, -50%);
     width: 60px;
     height: 40px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255,255,255,0.2);
     border: 2px dashed #6b2d2a;
     cursor: pointer;
     border-radius: 5px;
     z-index: 1;
 }
 
-/* Letter popup remains the same */
+/* Letter popup */
 .room-page .letter-popup {
     display: none;
     position: fixed;
@@ -139,3 +150,41 @@ footer {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     z-index: 10;
 }
+
+.room-page .letter-popup img {
+    max-width: 400px;
+}
+
+.room-page .letter-popup button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #6b2d2a;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.room-page .letter-popup button:hover {
+    background: #8b5e58;
+}
+
+/* =========================
+   Unieke backgrounds per kamer
+   ========================= */
+body.room-page.room-1 {
+    background: url('images/room1.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+body.room-page.room-2 {
+    background: url('images/room2.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+body.room-page.room-3 {
+    background: url('images/room3.png') center/cover no-repeat;
+    background-size: cover;
+}
+
+/* Je kan extra kamers toevoegen door body.room-page.room-4, room-5, ... te definiëren */
