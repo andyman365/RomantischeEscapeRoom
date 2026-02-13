@@ -15,11 +15,11 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
-    filter: brightness(0.7); /* Faded / dimmer */
+    filter: brightness(1.2); /* Lichter: 1 is normaal, >1 lichter */
 }
 
 header .overlay {
-    background: rgba(255, 245, 240, 0.5); /* iets meer transparant */
+    background: rgba(255, 245, 240, 0.7); /* meer transparantie */
     padding: 50px;
     border-radius: 15px;
 }
