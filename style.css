@@ -157,8 +157,11 @@ body.mystery-room::before {
 
 /* Eerste kamer: exacte briefpositie (desktop) */
 body.room .letter-btn {
-    top: 420px; /* pas aan op basis van je afbeelding */
-    left: 580px; /* pas aan op basis van je afbeelding */
+    top: 50%;   /* 50% van de hoogte van de container */
+    left: 60%;  /* 60% van de breedte van de container */
+    width: 5%;  /* proportioneel ten opzichte van container */
+    height: auto; 
+    aspect-ratio: 3/2; /* breedte/hoogte ratio behouden */
 }
 
 /* Letter popup */
