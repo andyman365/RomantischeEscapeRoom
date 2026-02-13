@@ -112,98 +112,74 @@ footer {
 /* =========================
    Kamerpagina styling
    ========================= */
-body.room,
-body.room-2,
-body.mystery-room {
-    font-family: 'Playfair Display', serif;
-    text-align: center;
-    color: #3d2c2a;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+/* Kamerpagina container */
+.room {
+  position: relative; /* container voor absolute kinderen */
+  width: 100%;
+  height: 100vh;
+  background: url('images/room.png') center/cover no-repeat;
+  background-size: cover;
+  font-family: 'Playfair Display', serif;
+  color: #3d2c2a;
 }
 
-/* Full-screen overlay voor alle kamers */
-body.room::before,
-body.room-2::before,
-body.mystery-room::before {
-    content: '';
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(255,245,240,0.3);
-    z-index: 0;
+/* Full-screen overlay (licht gefaded) */
+.room::before {
+  content: '';
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(255,245,240,0.3);
+  z-index: 0;
 }
 
 /* Kamer header */
 .room-header {
-    position: relative;
-    z-index: 1;
-    padding: 30px 20px;
+  position: relative;
+  z-index: 1;
+  padding: 30px 20px;
 }
 
-/* Klikbare letter knop */
+/* Klikbare brief */
 .letter-btn {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 60px;
-    height: 40px;
-    background: rgba(255,255,255,0.2);
-    border: 2px dashed #6b2d2a;
-    border-radius: 5px;
-    z-index: 1;
+  position: absolute;
+  top: 420px;  /* pixelwaarde precies boven de brief in de achtergrond */
+  left: 580px; /* pixelwaarde precies boven de brief */
+  width: 60px;
+  height: 40px;
+  background: rgba(255,255,255,0.2);
+  border: 2px dashed #6b2d2a;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* Letter popup */
 .letter-popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff0f5;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    z-index: 10;
+  display: none;
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  background: #fff0f5;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  z-index: 10;
 }
 
 .letter-popup img {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .letter-popup button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #6b2d2a;
-    color: #fff;
-    border-radius: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #6b2d2a;
+  color: #fff;
+  border-radius: 10px;
 }
 
 .letter-popup button:hover {
-    background: #8b5e58;
+  background: #8b5e58;
 }
-
-/* =========================
-   Unieke backgrounds per kamer
-   ========================= */
-
-/* Eerste kamer */
-body.room {
-    background: url('images/room.png') center/cover no-repeat;
-    background-size: cover;
-}
-
-/* Tweede kamer */
-body.room-2 {
-    background: url('images/room2.png') center/cover no-repeat;
-    background-size: cover;
-}
-
-/* Derde kamer / mystery room */
-body.mystery-room {
-    background: url('images/room3.png') center/cover no-repeat;
-    background-size: cover;
-}
-
-/* Voeg extra kamers toe met body.naamkamer */

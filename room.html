@@ -1,29 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Room</title>
-    <link rel="stylesheet" href="style.css">
-</head>
 <body class="room">
-    <!-- Header met titel en instructies -->
-    <header class="room-header">
-        <h1>You wake up in a quiet, dim room...</h1>
-    </header>
+  <div class="room-header">
+    <h1>Not all doors open easily…</h1>
+  </div>
 
-    <main class="room-container">
-        <!-- Klikbare brief op de tafel -->
-        <button class="letter-btn" aria-label="Click the letter"></button>
+  <!-- Kamer container -->
+  <div class="room-container">
+    <!-- Klikbare brief -->
+    <button class="letter-btn"></button>
 
-        <!-- Popup voor de Whistle-down brief -->
-        <div class="letter-popup" id="letterPopup">
-            <img src="images/whistle-letter.png" alt="Whistle-down letter">
-            <button id="closeLetter">Close</button>
-        </div>
-    </main>
+    <!-- Popup voor de brief -->
+    <div class="letter-popup" id="letterPopup">
+      <img src="images/whistledown.png" alt="Brief">
+      <button id="closeLetter">Close</button>
+    </div>
+  </div>
 
-    <!-- Script voor interactiviteit -->
-    <script src="script.js"></script>
+  <script>
+    // Brief klik
+    const letterBtn = document.querySelector('.letter-btn');
+    const letterPopup = document.getElementById('letterPopup');
+    const closeLetter = document.getElementById('closeLetter');
+
+    letterBtn.addEventListener('click', () => {
+      letterPopup.style.display = 'block';
+    });
+
+    closeLetter.addEventListener('click', () => {
+      letterPopup.style.display = 'none';
+    });
+  </script>
 </body>
-</html>
