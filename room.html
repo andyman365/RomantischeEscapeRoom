@@ -1,32 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room 1 - Not all doors open easily</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- jouw CSS bestand -->
+</head>
 <body class="room">
-  <div class="room-header">
-    <h1>Not all doors open easily…</h1>
-  </div>
 
-  <!-- Kamer container -->
-  <div class="room-container">
-    <!-- Klikbare brief -->
-    <button class="letter-btn"></button>
-
-    <!-- Popup voor de brief -->
-    <div class="letter-popup" id="letterPopup">
-      <img src="images/whistledown.png" alt="Brief">
-      <button id="closeLetter">Close</button>
+    <!-- Kamer header / titel -->
+    <div class="room-header">
+        <h1>Not all doors open easily…</h1>
     </div>
-  </div>
 
-  <script>
-    // Brief klik
-    const letterBtn = document.querySelector('.letter-btn');
-    const letterPopup = document.getElementById('letterPopup');
-    const closeLetter = document.getElementById('closeLetter');
+    <!-- Kamer container -->
+    <div class="room-container">
 
-    letterBtn.addEventListener('click', () => {
-      letterPopup.style.display = 'block';
-    });
+        <!-- Klikbare brief -->
+        <button class="letter-btn" aria-label="Click to read the letter"></button>
 
-    closeLetter.addEventListener('click', () => {
-      letterPopup.style.display = 'none';
-    });
-  </script>
+        <!-- Popup voor de brief -->
+        <div class="letter-popup" id="letterPopup">
+            <img src="images/whistledown.png" alt="Brief">
+            <button id="closeLetter">Close</button>
+        </div>
+
+    </div>
+
+    <!-- Scripts voor brief interactie -->
+    <script>
+        const letterBtn = document.querySelector('.letter-btn');
+        const letterPopup = document.getElementById('letterPopup');
+        const closeLetter = document.getElementById('closeLetter');
+
+        // Open popup
+        letterBtn.addEventListener('click', () => {
+            letterPopup.style.display = 'block';
+        });
+
+        // Sluit popup
+        closeLetter.addEventListener('click', () => {
+            letterPopup.style.display = 'none';
+        });
+    </script>
 </body>
+</html>
