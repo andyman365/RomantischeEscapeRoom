@@ -7,13 +7,16 @@
 </head>
 <body class="room">
 
-    <!-- Kamer header / titel -->
-    <div class="room-header">
-        <h1>Not all doors open easily…</h1>
-    </div>
-
-    <!-- Kamer container -->
+    <!-- Kamer container: RELATIEVE CONTAINER voor achtergrond en knop -->
     <div class="room-container">
+
+        <!-- Achtergrond afbeelding als <img> zodat knop position stabiel blijft -->
+        <img src="images/room.png" alt="Room background" class="room-bg">
+
+        <!-- Kamer header / titel (los van knop) -->
+        <div class="room-header">
+            <h1>Not all doors open easily…</h1>
+        </div>
 
         <!-- Klikbare brief -->
         <button class="letter-btn" aria-label="Click to read the letter"></button>

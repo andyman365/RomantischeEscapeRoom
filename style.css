@@ -6,7 +6,7 @@
 body {
     margin: 0;
     font-family: 'Playfair Display', serif;
-    color: #3d2c2a; /* Tekstkleur consistent */
+    color: #3d2c2a;
     text-align: center;
 }
 
@@ -111,65 +111,56 @@ footer {
    Kamerpagina styling
    ========================= */
 
-/* Algemene kamerpagina settings */
-body.room,
-body.room-2,
-body.mystery-room {
-    position: relative; /* container voor absolute kinderen */
+/* Container voor achtergrond en interactieve elementen */
+.room-container {
+    position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    text-align: center;
-    color: #3d2c2a;
-    font-family: 'Playfair Display', serif;
 }
 
-/* Overlay voor alle kamers */
-body.room::before,
-body.room-2::before,
-body.mystery-room::before {
-    content: '';
+/* Achtergrond afbeelding */
+.room-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    background: rgba(255,245,240,0.3);
+    top: 0;
+    left: 0;
     z-index: 0;
 }
 
-/* Kamer header */
+/* Kamer header (bovenaan) */
 .room-header {
-    position: relative;
-    z-index: 1;
-    padding: 30px 20px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
+    color: #3d2c2a;
 }
 
 /* Klikbare brief */
 .letter-btn {
     position: absolute;
+    top: 60%;  /* percentage van container */
+    left: 55%; /* percentage van container */
     width: 60px;
     height: 40px;
     background: rgba(255,255,255,0.2);
     border: 2px dashed #6b2d2a;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 1;
-}
-
-/* Eerste kamer: exacte briefpositie (desktop) */
-body.room .letter-btn {
-    top: 50%;   /* 50% van de hoogte van de container */
-    left: 60%;  /* 60% van de breedte van de container */
-    width: 5%;  /* proportioneel ten opzichte van container */
-    height: auto; 
-    aspect-ratio: 3/2; /* breedte/hoogte ratio behouden */
+    z-index: 3;
 }
 
 /* Letter popup */
 .letter-popup {
     display: none;
     position: fixed;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     background: #fff0f5;
     padding: 20px;
@@ -195,46 +186,45 @@ body.room .letter-btn {
 }
 
 /* =========================
-   Unieke backgrounds per kamer
+   Unieke backgrounds per kamer (indien nodig)
    ========================= */
-body.room {
-    background: url('images/room.png') center/cover no-repeat;
-    background-size: cover;
+body.room .room-bg {
+    content: url('images/room.png');
 }
 
-body.room-2 {
-    background: url('images/room2.png') center/cover no-repeat;
-    background-size: cover;
+body.room-2 .room-bg {
+    content: url('images/room2.png');
 }
 
-body.mystery-room {
-    background: url('images/room3.png') center/cover no-repeat;
-    background-size: cover;
+body.mystery-room .room-bg {
+    content: url('images/room3.png');
 }
 
 /* =========================
    Responsive / kleinere schermen
    ========================= */
 @media (max-width: 1200px) {
-    body.room .letter-btn {
-        top: 360px;
-        left: 480px;
+    .letter-btn {
+        top: 55%;
+        left: 50%;
     }
 }
 
 @media (max-width: 992px) {
-    body.room .letter-btn {
-        top: 320px;
-        left: 400px;
+    .letter-btn {
+        top: 50%;
+        left: 45%;
+        width: 50px;
+        height: 35px;
     }
 }
 
 @media (max-width: 768px) {
-    body.room .letter-btn {
-        top: 280px;
-        left: 320px;
-        width: 50px;
-        height: 35px;
+    .letter-btn {
+        top: 45%;
+        left: 42%;
+        width: 45px;
+        height: 30px;
     }
 
     header .title {
