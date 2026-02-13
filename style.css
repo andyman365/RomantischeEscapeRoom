@@ -79,36 +79,42 @@ footer {
     color: #6b2d2a;
     font-style: italic;
 }
-/* Kamerpagina styles */
+/* Room page */
 .room-page {
     font-family: 'Playfair Display', serif;
     text-align: center;
     color: #3d2c2a;
-    background: #fff5f0;
+    background: url('images/room.png') center/cover no-repeat;
+    background-size: cover; /* ensures full coverage */
+    background-position: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Header */
+/* Optional overlay to make text and clickable letter visible */
+.room-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 245, 240, 0.3); /* subtle faded overlay */
+    z-index: 0;
+}
+
+/* Room header */
 .room-page .room-header {
+    position: relative;
+    z-index: 1;
     padding: 30px 20px;
 }
 
-/* Container voor de kamer */
-.room-page .room-container {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Room image */
-.room-page .room-image {
-    width: 100%;
-    border-radius: 15px;
-}
-
-/* Klikbare brief */
+/* Clickable letter button */
 .room-page .letter-btn {
     position: absolute;
-    top: 65%;  /* pas aan op basis van je image */
+    top: 65%;  /* adjust depending on room.png */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60px;
@@ -117,9 +123,10 @@ footer {
     border: 2px dashed #6b2d2a;
     cursor: pointer;
     border-radius: 5px;
+    z-index: 1;
 }
 
-/* Popup brief */
+/* Letter popup remains the same */
 .room-page .letter-popup {
     display: none;
     position: fixed;
@@ -131,22 +138,4 @@ footer {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     z-index: 10;
-}
-
-.room-page .letter-popup img {
-    max-width: 400px;
-}
-
-.room-page .letter-popup button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #6b2d2a;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.room-page .letter-popup button:hover {
-    background: #8b5e58;
 }

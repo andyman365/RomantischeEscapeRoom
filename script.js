@@ -1,18 +1,25 @@
-<body class="room-page">
-    <header class="room-header">
-        <h1>A quiet, dim room...</h1>
-        <p>Click the letter on the table to read it.</p>
-    </header>
+// Landingpage: smooth scroll
+const startBtn = document.querySelector('.btn');
+const startSection = document.querySelector('#start');
 
-    <main class="room-container">
-        <img src="images/room.png" alt="Small room with bed and table" class="room-image">
-        <button class="letter-btn" aria-label="Click the letter"></button>
+if (startBtn && startSection) {
+    startBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        startSection.scrollIntoView({ behavior: 'smooth' });
+    });
+}
 
-        <div class="letter-popup" id="letterPopup">
-            <img src="images/whistle-letter.png" alt="Whistle-down letter">
-            <button id="closeLetter">Close</button>
-        </div>
-    </main>
+// Room page: letter interaction
+const letterBtn = document.querySelector('.letter-btn');
+const letterPopup = document.getElementById('letterPopup');
+const closeLetter = document.getElementById('closeLetter');
 
-    <script src="script.js"></script>
-</body>
+if (letterBtn && letterPopup && closeLetter) {
+    letterBtn.addEventListener('click', () => {
+        letterPopup.style.display = 'block';
+    });
+
+    closeLetter.addEventListener('click', () => {
+        letterPopup.style.display = 'none';
+    });
+}
