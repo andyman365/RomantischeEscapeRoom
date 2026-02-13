@@ -8,59 +8,34 @@
 <body class="room">
 
     <div class="room-container">
-        <!-- Achtergrond afbeelding -->
-        <img src="images/room.png" alt="Room" class="room-bg">
+        <!-- SVG container met achtergrond als rect -->
+        <svg class="room-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            <!-- Achtergrond -->
+            <image href="images/room.png" x="0" y="0" width="1200" height="800" preserveAspectRatio="xMidYMid slice" />
 
-        <!-- SVG overlay -->
-        <svg class="click-overlay" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
-            <rect id="letterRect"
-                  x="650" y="490" width="350" height="100"
+            <!-- Klikbare brief -->
+            <rect x="620" y="460" width="280" height="85"
                   fill="transparent"
-                  stroke="rgba(255,0,0,0.3)" stroke-width="2"
-                  cursor="pointer"/>
+                  stroke="rgba(255,0,0,0.3)"
+                  stroke-width="2"
+                  cursor="pointer"
+                  onclick="openLetter()"/>
         </svg>
     </div>
 
-    <!-- Popup brief -->
+    <!-- Popup -->
     <div class="letter-popup" id="letterPopup">
         <img src="images/whistledown.png" alt="Brief">
-        <button id="closeLetter">Close</button>
+        <button onclick="closeLetter()">Close</button>
     </div>
 
     <script>
-        const letterRect = document.getElementById('letterRect');
-        const letterPopup = document.getElementById('letterPopup');
-        const closeLetterBtn = document.getElementById('closeLetter');
-        const roomImg = document.querySelector('.room-bg');
-
-        // originele viewBox coords
-        const orig = { x: 650, y: 490, width: 350, height: 100 };
-        const viewBoxWidth = 1200;
-        const viewBoxHeight = 800;
-
-        // functie om te schalen
-        function scaleRect() {
-            const scaleX = roomImg.clientWidth / viewBoxWidth;
-            const scaleY = roomImg.clientHeight / viewBoxHeight;
-
-            letterRect.setAttribute('x', orig.x * scaleX);
-            letterRect.setAttribute('y', orig.y * scaleY);
-            letterRect.setAttribute('width', orig.width * scaleX);
-            letterRect.setAttribute('height', orig.height * scaleY);
+        function openLetter() {
+            document.getElementById('letterPopup').style.display = 'block';
         }
-
-        window.addEventListener('resize', scaleRect);
-        window.addEventListener('load', scaleRect);
-
-        // open popup
-        letterRect.addEventListener('click', () => {
-            letterPopup.style.display = 'block';
-        });
-
-        // sluit popup
-        closeLetterBtn.addEventListener('click', () => {
-            letterPopup.style.display = 'none';
-        });
+        function closeLetter() {
+            document.getElementById('letterPopup').style.display = 'none';
+        }
     </script>
 </body>
 </html>

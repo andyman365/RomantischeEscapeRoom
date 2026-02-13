@@ -1,11 +1,20 @@
-/* Algemene styling */
+/* =========================
+   Algemene styling voor alle pagina's
+   ========================= */
+
+/* Body algemeen */
 body {
     margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* voorkomt scrollbars */
     font-family: 'Playfair Display', serif;
     color: #3d2c2a;
     text-align: center;
 }
 
+/* Links / buttons algemeen */
 a, button {
     font-family: inherit;
     font-size: 1rem;
@@ -15,29 +24,28 @@ a, button {
     background: none;
 }
 
-/* Landingpage */
+/* =========================
+   Landingpage styling
+   ========================= */
 body.landing-page {
     background: url('images/bg.png') center/cover no-repeat;
     background-size: cover;
     height: 100vh;
     filter: brightness(1.2);
-}
-
-body.landing-page header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 body.landing-page header .overlay {
-    background: rgba(255,245,240,0.7);
+    background: rgba(255, 245, 240, 0.7);
     padding: 50px;
     border-radius: 15px;
     display: inline-block;
     text-align: center;
 }
 
+/* Titel en subtitel landingpage */
 header .title {
     font-family: 'Great Vibes', cursive;
     font-size: 4rem;
@@ -53,6 +61,7 @@ header .subtitle {
     font-style: italic;
 }
 
+/* Landingpage knop */
 header .btn {
     text-decoration: none;
     background: #6b2d2a;
@@ -67,30 +76,25 @@ header .btn:hover {
     background: #8b5e58;
 }
 
-/* Kamerpagina */
-.room-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-}
+/* =========================
+   Kamerpagina styling
+   ========================= */
 
-.room-bg {
+/* Kamer container full screen */
+.room-container {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    position: relative;
+}
+
+/* SVG volledige scherm */
+.room-svg {
+    width: 100%;
+    height: 100%;
     display: block;
 }
 
-.click-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-}
-
+/* Letter popup styling */
 .letter-popup {
     display: none;
     position: fixed;
@@ -106,6 +110,7 @@ header .btn:hover {
 
 .letter-popup img {
     max-width: 400px;
+    height: auto;
 }
 
 .letter-popup button {
@@ -114,8 +119,36 @@ header .btn:hover {
     background: #6b2d2a;
     color: #fff;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .letter-popup button:hover {
     background: #8b5e58;
+}
+
+/* =========================
+   Extra: responsive landingpage
+   ========================= */
+@media (max-width: 992px) {
+    header .title {
+        font-size: 3rem;
+    }
+    header .subtitle {
+        font-size: 1.2rem;
+    }
+    header .btn {
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    header .title {
+        font-size: 2.5rem;
+    }
+    header .subtitle {
+        font-size: 1rem;
+    }
+    header .btn {
+        padding: 10px 20px;
+    }
 }
