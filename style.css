@@ -61,16 +61,18 @@ header .btn:hover {
 /* Kamerpagina */
 .room-container {
     position: relative;
-    width: 100vw;      /* volle breedte van het scherm */
-    height: 100vh;     /* volle hoogte van het scherm */
+    width: 100%;
+    height: 0;
+    padding-top: 66.66%; /* voorbeeld: 1200/800 = 1.5 → 66.66% */
     overflow: hidden;
 }
 
 .room-bg {
+    position: absolute;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* laat de afbeelding de container volledig vullen */
-    display: block;
+    object-fit: cover;
 }
 
 /* SVG overlay */
