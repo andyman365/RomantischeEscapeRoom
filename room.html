@@ -24,18 +24,35 @@
     </div>
 
     <!-- Popup -->
-    <div class="letter-popup" id="letterPopup">
-        <img src="images/whistledown.png" alt="Brief">
-        <button onclick="closeLetter()">Close</button>
+<div class="letter-popup" id="letterPopup">
+    <div class="img-container" id="imgContainer">
+        <img src="images/whistledown.png" alt="Brief" id="popupImage">
     </div>
+    <button onclick="closeLetter()">Close</button>
+</div>
 
     <script>
-        function openLetter() {
-            document.getElementById('letterPopup').style.display = 'block';
-        }
-        function closeLetter() {
-            document.getElementById('letterPopup').style.display = 'none';
-        }
+function openLetter() {
+    document.getElementById('letterPopup').style.display = 'flex'; // popup openen bij klik
+}
+
+function closeLetter() {
+    document.getElementById('letterPopup').style.display = 'none'; // popup sluiten
+}
+
+const popupImage = document.getElementById('popupImage');
+let scale = 1;
+
+popupImage.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    if(e.deltaY < 0) { // scroll up → zoom in
+        scale += 0.1;
+    } else {           // scroll down → zoom out
+        scale -= 0.1;
+        if(scale < 1) scale = 1; // niet kleiner dan fit
+    }
+    popupImage.style.transform = `scale(${scale})`;
+});
     </script>
 </body>
 </html>
