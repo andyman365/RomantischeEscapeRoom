@@ -15,14 +15,14 @@ header {
     align-items: center;
     justify-content: center;
     text-align: center;
+    filter: brightness(0.7); /* Faded / dimmer */
 }
 
 header .overlay {
-    background: rgba(255, 245, 240, 0.6);
+    background: rgba(255, 245, 240, 0.5); /* iets meer transparant */
     padding: 50px;
     border-radius: 15px;
 }
-
 header .title {
     font-family: 'Great Vibes', cursive;
     font-size: 4rem;
@@ -34,6 +34,8 @@ header .subtitle {
     font-size: 1.5rem;
     margin: 10px 0 20px;
     color: #8b5e58;
+    letter-spacing: 1px;
+    font-style: italic;
 }
 
 header .btn {
