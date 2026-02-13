@@ -23,20 +23,22 @@ a, button {
 /* =========================
    Landingpage styling
    ========================= */
-body.landing-page {
-    background: url('images/bg.png') center/cover no-repeat;
-    background-size: cover;
-    height: 100vh;
+/* Landingpage overlay gecentreerd */
+body.landing-page header {
     position: relative;
-    filter: brightness(1.2);
+    height: 100vh;
 }
 
-/* Overlay in het midden voor landingpage */
 body.landing-page header .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* perfect centering */
     background: rgba(255, 245, 240, 0.7);
     padding: 50px;
     border-radius: 15px;
-    display: inline-block; /* alleen rond de tekst */
+    display: inline-block; /* box rond tekst */
+    text-align: center;
 }
 
 /* Titel en subtitel landingpage */
