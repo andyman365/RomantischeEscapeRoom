@@ -1,8 +1,4 @@
-/* =========================
-   Algemene styling voor alle pagina's
-   ========================= */
-
-/* Body algemeen voor alle pagina’s */
+/* Algemene styling */
 body {
     margin: 0;
     font-family: 'Playfair Display', serif;
@@ -10,24 +6,11 @@ body {
     text-align: center;
 }
 
-/* Links / buttons algemeen */
-a, button {
-    font-family: inherit;
-    font-size: 1rem;
-    color: inherit;
-    cursor: pointer;
-    border: none;
-    background: none;
-}
-
-/* =========================
-   Landingpage styling
-   ========================= */
+/* Landingpage styling */
 body.landing-page {
     background: url('images/bg.png') center/cover no-repeat;
     background-size: cover;
     height: 100vh;
-    position: relative;
     filter: brightness(1.2);
 }
 
@@ -36,18 +19,16 @@ body.landing-page header {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative;
 }
 
 body.landing-page header .overlay {
-    background: rgba(255, 245, 240, 0.7);
+    background: rgba(255,245,240,0.7);
     padding: 50px;
     border-radius: 15px;
     display: inline-block;
     text-align: center;
 }
 
-/* Titel en subtitel landingpage */
 header .title {
     font-family: 'Great Vibes', cursive;
     font-size: 4rem;
@@ -63,7 +44,6 @@ header .subtitle {
     font-style: italic;
 }
 
-/* Landingpage knop */
 header .btn {
     text-decoration: none;
     background: #6b2d2a;
@@ -78,86 +58,37 @@ header .btn:hover {
     background: #8b5e58;
 }
 
-/* =========================
-   Content / Footer algemeen
-   ========================= */
-.content {
-    padding: 60px 20px;
-    max-width: 800px;
-    margin: auto;
-}
-
-.content h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.content p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    text-align: center;
-}
-
-footer {
-    background: #ffe5e0;
-    padding: 20px;
-    text-align: center;
-    color: #6b2d2a;
-    font-style: italic;
-}
-
-/* =========================
-   Kamerpagina styling
-   ========================= */
-
-/* Container voor achtergrond en interactieve elementen */
+/* Kamerpagina */
 .room-container {
     position: relative;
-    width: 100%;
-    max-width: 1200px;       /* optioneel: limiet */
-    margin: 0 auto;
-    /* Vaste verhouding 16:9 */
-    padding-top: 56.25%;     /* 9/16 = 0.5625 */
+    width: 100vw;      /* volle breedte van het scherm */
+    height: 100vh;     /* volle hoogte van het scherm */
+    overflow: hidden;
 }
 
 .room-bg {
-    position: absolute;
-    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    z-index: 0;
+    object-fit: cover;  /* laat de afbeelding de container volledig vullen */
+    display: block;
 }
 
-/* Kamer header (bovenaan) */
-.room-header {
+/* SVG overlay */
+.click-overlay {
     position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 2;
-    text-align: center;
-    color: #3d2c2a;
-}
-
-/* Klikbare brief */
-.letter-btn {
-    position: absolute;
-    /* Positie als percentage van de container */
-    top: 65%;  
-    left: 48%;
-    width: 5%;    /* schaal met container */
-    height: auto; /* behoud verhouding */
-    z-index: 3;
 }
 
 /* Letter popup */
 .letter-popup {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top:50%;
+    left:50%;
     transform: translate(-50%, -50%);
     background: #fff0f5;
     padding: 20px;
@@ -180,55 +111,4 @@ footer {
 
 .letter-popup button:hover {
     background: #8b5e58;
-}
-
-/* =========================
-   Unieke backgrounds per kamer (indien nodig)
-   ========================= */
-body.room .room-bg {
-    content: url('images/room.png');
-}
-
-body.room-2 .room-bg {
-    content: url('images/room2.png');
-}
-
-body.mystery-room .room-bg {
-    content: url('images/room3.png');
-}
-
-/* =========================
-   Responsive / kleinere schermen
-   ========================= */
-@media (max-width: 1200px) {
-    .letter-btn {
-        top: 55%;
-        left: 50%;
-    }
-}
-
-@media (max-width: 992px) {
-    .letter-btn {
-        top: 50%;
-        left: 45%;
-        width: 50px;
-        height: 35px;
-    }
-}
-
-@media (max-width: 768px) {
-    .letter-btn {
-        top: 45%;
-        left: 42%;
-        width: 45px;
-        height: 30px;
-    }
-
-    header .title {
-        font-size: 3rem;
-    }
-
-    header .subtitle {
-        font-size: 1.2rem;
-    }
 }
