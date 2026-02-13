@@ -1,19 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Room</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body class="room-page">
+    <!-- Header met titel en instructies -->
     <header class="room-header">
-        <h1>A quiet, dim room...</h1>
-        <p>Click the letter on the table to read it.</p>
+        <h1>You wake up in a quiet, dim room...</h1>
     </header>
 
     <main class="room-container">
-        <!-- Letter button stays -->
+        <!-- Klikbare brief op de tafel -->
         <button class="letter-btn" aria-label="Click the letter"></button>
 
-        <!-- Hidden Whistle-down letter popup -->
+        <!-- Popup voor de Whistle-down brief -->
         <div class="letter-popup" id="letterPopup">
             <img src="images/whistle-letter.png" alt="Whistle-down letter">
             <button id="closeLetter">Close</button>
         </div>
     </main>
 
+    <!-- Script voor interactiviteit -->
     <script src="script.js"></script>
 </body>
+</html>
