@@ -1,0 +1,153 @@
+/* =========================
+   BIBLIOTHEEK ROOM
+========================= */
+body.library-room {
+    background: url('images/library-bg.jpg') center/cover no-repeat;
+    min-height: 100vh;
+    position: relative;
+    color: #3e2b2b;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Soft overlay */
+body.library-room::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 0;
+}
+
+.room-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 80px 20px 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Whistledown box */
+.whistledown-box {
+    background: rgba(255, 245, 240, 0.95);
+    padding: 50px;
+    width: 65%;
+    max-width: 850px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.whistledown-box h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #7b2e2e;
+}
+
+.whistledown-text {
+    margin-top: 25px;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* Puzzle container */
+.puzzle-container {
+    background: rgba(255, 255, 255, 0.95);
+    width: 75%;
+    max-width: 1000px;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-container h2 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #5a1f1f;
+}
+
+/* Crossword grid */
+.crossword-grid {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.crossword-grid input {
+    width: 55px;
+    height: 55px;
+    margin: 4px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #caa4a4;
+    border-radius: 8px;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.crossword-grid input:focus {
+    border-color: #7b2e2e;
+    box-shadow: 0 0 10px rgba(123,46,46,0.3);
+    outline: none;
+}
+
+/* Highlight letters forming "VALENTIJN" */
+.crossword-grid input.highlight {
+    border: 3px solid #7b2e2e;
+}
+
+/* Code input and button */
+.code-section input {
+    width: 75%;
+    max-width: 600px;
+    padding: 18px;
+    font-size: 1.5rem;
+    border-radius: 20px;
+    border: 2px solid #caa4a4;
+    text-align: center;
+    letter-spacing: 3px;
+    background: #fff9f9;
+    font-family: 'Playfair Display', serif;
+    transition: all 0.3s ease;
+}
+
+.code-section input:focus {
+    border-color: #7b2e2e;
+    box-shadow: 0 0 15px rgba(123,46,46,0.3);
+    outline: none;
+}
+
+.code-section button {
+    margin-left: 15px;
+    padding: 18px 40px;
+    font-size: 1.3rem;
+    background: linear-gradient(135deg, #7b2e2e, #a55555);
+    color: white;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.code-section button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Feedback */
+#feedback {
+    margin-top: 30px;
+    font-size: 1.6rem;
+    font-style: italic;
+    min-height: 50px;
+    transition: all 0.3s ease;
+}
+
+#feedback.correct {
+    color: #2e7d32; /* groen voor correct */
+    font-size: 2.2rem;
+    font-weight: bold;
+}
