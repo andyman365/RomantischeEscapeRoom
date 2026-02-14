@@ -92,7 +92,7 @@ button:hover { background-color: #fbeec1; }
 <button id="nextRoomBtn" onclick="goToNextRoom()">Ga naar de volgende kamer</button>
 
 <script>
-const letters = ["a", "s", "d", "f", "o", "u"];
+const letters = ["a"];
 
 let currentLetter;
 let score = 0;
@@ -159,7 +159,7 @@ document.addEventListener("keydown", function(e) {
 
         speed = Math.max(700, speed - 150);
 
-        if (score === 10) {
+        if (score === 4) {
             winGame();
             return;
         }
