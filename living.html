@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Kamer 4 - Living Wordle Lady Whistledown</title>
+<style>
+body {
+    font-family: "Georgia", serif;
+    background-image: url('images/living_bg.png');
+    background-size: cover;
+    background-position: center;
+    color: #2c1f0e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100vh;
+    margin: 0;
+    padding-top: 40px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.wordle-container {
+    display: grid;
+    grid-template-rows: repeat(6, 60px);
+    gap: 10px;
+    background-color: rgba(255,248,230,0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(6, 60px);
+    gap: 5px;
+}
+
+input.cell {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid #a1866f;
+    background-color: rgba(255,255,255,0.2);
+    color: #2c1f0e;
+    outline: none;
+}
+
+input.cell.correct { background-color: #4caf50; border-color: #4caf50; color:white; }
+input.cell.present { background-color: #ff9800; border-color: #ff9800; color:white; }
+input.cell.absent  { background-color: #555; border-color: #555; color:white; }
+
+.popup {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+    color:#2c1f0e;
+    flex-direction: column;
+    z-index: 100;
+    text-align: center;
+    padding: 20px;
+}
+
+.popup p {
+    background: rgba(255,248,230,0.95);
+    padding: 25px 40px;
+    border-radius: 15px;
+    border: 2px solid #d4c0a1;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    font-size: 20px;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+.popup button {
+    margin-top:15px;
+    padding: 10px 20px;
+    font-size:16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid #d4c0a1;
+    background-color: #fdf5e6;
+    color: #2c1f0e;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
+}
+
+.popup button:hover {
+    background-color: #fbeec1;
+}
+</style>
+</head>
+<body>
+
+<h1>Kamer 4: De Living – Raad het woord</h1>
+
+<div class="wordle-container" id="wordleContainer">
+    <div class="row" id="row0"></div>
+    <div class="row" id="row1"></div>
+    <div class="row" id="row2"></div>
+    <div class="row" id="row3"></div>
+    <div class="row" id="row4"></div>
+    <div class="row" id="row5"></div>
+</div>
+
+<div class="input-container" style="margin-top:15px;">
+
+</div>
+
+<div class="popup" id="endPopup">
+    <p id="endMessage"></p>
+    <button id="nextWordBtn">OK</button>
+</div>
+
+<script>
+// Woordenlijst
+const words = ["VARKEN","BANANA","KASTEN","PORNO","GELUID","SLEUTEL","BUREAU","BRIEF","LAMPEN","BOEKEN","DEUR"];
+let currentWordIndex = 0;
+let word = words[currentWordIndex];
+const maxAttempts = 6;
+let currentAttempt = 0;
+
+// Maak vakjes
+function createBoard(){
+    for(let r=0; r<maxAttempts; r++){
+        const row = document.getElementById('row'+r);
+        row.innerHTML="";
+        for(let c=0; c<6; c++){
+            const input = document.createElement('input');
+            input.setAttribute('type','text');
+            input.setAttribute('maxlength','1');
+            input.classList.add('cell');
+
+            input.addEventListener('input', ()=>{
+                input.value = input.value.toUpperCase();
+                const next = input.nextElementSibling;
+                if(next) next.focus();
+            });
+
+            input.addEventListener('keydown',(e)=>{
+                if(e.key==="Backspace"){
+                    e.preventDefault();
+                    if(input.value){
+                        input.value="";
+                    } else {
+                        const prev = input.previousElementSibling;
+                        if(prev){
+                            prev.focus();
+                            prev.value="";
+                        }
+                    }
+                } else if(e.key==="ArrowLeft"){
+                    const prev = input.previousElementSibling;
+                    if(prev) prev.focus();
+                } else if(e.key==="ArrowRight"){
+                    const next = input.nextElementSibling;
+                    if(next) next.focus();
+                }
+            });
+
+            row.appendChild(input);
+        }
+    }
+    currentAttempt=0;
+    document.getElementById('row0').children[0].focus();
+}
+
+// Start
+createBoard();
+
+// Submit guess
+function submitGuess(){
+    if(currentAttempt>=maxAttempts) return;
+    const row = document.getElementById('row'+currentAttempt);
+    let guess = "";
+    for(let i=0;i<6;i++){
+        guess += row.children[i].value.toUpperCase();
+    }
+    if(guess.length<6){
+        alert("Vul alle 6 letters in!");
+        return;
+    }
+
+    // kleur letters
+    for(let i=0;i<6;i++){
+        const cell = row.children[i];
+        if(guess[i] === word[i]){
+            cell.classList.add('correct');
+        } else if(word.includes(guess[i])){
+            cell.classList.add('present');
+        } else {
+            cell.classList.add('absent');
+        }
+        cell.disabled = true;
+    }
+
+    if(guess === word){
+        showNextRoundPopup();
+        return;
+    }
+
+    currentAttempt++;
+    if(currentAttempt<maxAttempts){
+        const nextRow = document.getElementById('row'+currentAttempt);
+        nextRow.children[0].focus();
+    } else {
+        showEndPopup(`Helaas! Het juiste woord was: ${word}`);
+    }
+}
+
+// Popup bij correcte woord
+function showNextRoundPopup(){
+    const popup = document.getElementById('endPopup');
+    document.getElementById('endMessage').textContent = 
+        "You are undeniably clever, my dear, yet we are not quite there just yet; the path to triumph still winds ahead.";
+    const btn = document.getElementById('nextWordBtn');
+    btn.textContent = "Continue to the next room";
+    btn.onclick = () => {
+        window.location.href = "memory.html"; // of volgende ronde
+    };
+    popup.style.display = 'flex';
+}
+
+// Popup bij mislukte pogingen
+function showEndPopup(msg){
+    const popup = document.getElementById('endPopup');
+    document.getElementById('endMessage').textContent = msg;
+    const btn = document.getElementById('nextWordBtn');
+    btn.textContent = "Probeer opnieuw";
+    btn.onclick = nextWord;
+    popup.style.display = 'flex';
+}
+
+function closeEndPopup(){
+    document.getElementById('endPopup').style.display='none';
+}
+
+function nextWord(){
+    closeEndPopup();
+    currentWordIndex++;
+    if(currentWordIndex >= words.length){
+        alert("Alle woorden voltooid!");
+        return;
+    }
+    word = words[currentWordIndex];
+    createBoard();
+}
+
+// Enter toets submit
+document.addEventListener('keydown', (e)=>{
+    if(e.key==="Enter"){
+        submitGuess();
+    }
+});
+</script>
+
+</body>
+</html>
