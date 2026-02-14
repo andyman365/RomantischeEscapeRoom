@@ -107,7 +107,7 @@ input.cell.absent  { background-color: #555; border-color: #555; color:white; }
 </head>
 <body>
 
-<h1>Kamer 4: De Living – Raad het woord</h1>
+<h1></h1>
 
 <div class="wordle-container" id="wordleContainer">
     <div class="row" id="row0"></div>
@@ -129,7 +129,7 @@ input.cell.absent  { background-color: #555; border-color: #555; color:white; }
 
 <script>
 // Woordenlijst
-const words = ["VARKEN","BANANA","KASTEN","PORNO","GELUID","SLEUTEL","BUREAU","BRIEF","LAMPEN","BOEKEN","DEUR"];
+const words = ["VARKEN","KINDJE","ZWOLLE","TIETEN","NEUKEN"];
 let currentWordIndex = 0;
 let word = words[currentWordIndex];
 const maxAttempts = 6;
@@ -231,7 +231,7 @@ function showNextRoundPopup(){
     const btn = document.getElementById('nextWordBtn');
     btn.textContent = "Continue to the next room";
     btn.onclick = () => {
-        window.location.href = "memory.html"; // of volgende ronde
+        window.location.href = "reflex.html"; // of volgende ronde
     };
     popup.style.display = 'flex';
 }

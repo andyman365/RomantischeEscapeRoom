@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lady Whistledown's Reflex Trial</title>
+
+<style>
+body {
+    font-family: Georgia, serif;
+    background: url('images/diner.jpeg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    color: #2c1f0e;
+    position: relative;
+}
+
+/* Faded background overlay */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 248, 230, 0.8); /* licht geelachtig, semi-transparant */
+    backdrop-filter: blur(5px); /* vervaging van achtergrond */
+    z-index: 0;
+}
+
+h1, p, #command, #score, button {
+    position: relative;
+    z-index: 1; /* boven overlay */
+}
+
+#command {
+    font-size: 36px;
+    margin: 30px;
+    padding: 30px 50px;
+    background-color: rgba(255, 248, 230, 0.9); /* lichte, semi-transparante achtergrond */
+    border: 3px solid #d4c0a1;
+    border-radius: 15px;
+    min-width: 400px;
+    transition: all 0.3s ease;
+}
+
+#score {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 25px;
+    padding: 12px 30px;
+    font-size: 18px;
+    background-color: rgba(255, 248, 230, 0.9);
+    border: 2px solid #d4c0a1;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: Georgia, serif;
+}
+
+button:hover { background-color: #fbeec1; }
+
+#nextRoomBtn {
+    display: none;
+}
+
+.countdown {
+    font-size: 80px !important;
+    animation: zoomFade 0.7s ease forwards;
+}
+
+@keyframes zoomFade {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Lady Whistledown's Reflex Trial</h1>
+<p>For every keystroke holds a secret, and each correct press draws you closer to uncovering a truth far sweeter than mere words. Let your fingers dance upon the keys, and let your heart guide you through this most delicate of puzzles.</p>
+
+<div id="command">Press "Begin the Trial"</div>
+<div id="score">Score: 0</div>
+
+<button id="startBtn" onclick="startGame()">Begin the Trial</button>
+<button id="nextRoomBtn" onclick="goToNextRoom()">Ga naar de volgende kamer</button>
+
+<script>
+const letters = ["a", "s", "d", "f", "o", "u"];
+
+let currentLetter;
+let score = 0;
+let speed = 2000;
+let playing = false;
+let timer = null;
+let countingDown = false;
+
+function startGame() {
+    score = 0;
+    speed = 2000;
+    playing = true;
+
+    document.getElementById("score").textContent = "Score: 0";
+    document.getElementById("nextRoomBtn").style.display = "none";
+
+    countdownThenNext();
+}
+
+function countdownThenNext() {
+    clearTimeout(timer);
+    countingDown = true;
+
+    let count = 3;
+    const commandDiv = document.getElementById("command");
+
+    commandDiv.classList.add("countdown");
+    commandDiv.textContent = count;
+
+    const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+            commandDiv.textContent = count;
+        } else {
+            clearInterval(interval);
+            commandDiv.classList.remove("countdown");
+            countingDown = false;
+            nextCommand();
+        }
+    }, 800);
+}
+
+function nextCommand() {
+    currentLetter = letters[Math.floor(Math.random() * letters.length)];
+    document.getElementById("command").textContent =
+        "Press '" + currentLetter.toUpperCase() + "' at once!";
+
+    timer = setTimeout(() => {
+        if (playing) {
+            gameOver("Too slow, my dear… swiftness is everything.");
+        }
+    }, speed);
+}
+
+document.addEventListener("keydown", function(e) {
+    if (!playing || countingDown) return;
+
+    if (e.key.toLowerCase() === currentLetter) {
+
+        clearTimeout(timer);
+
+        score++;
+        document.getElementById("score").textContent = "Score: " + score;
+
+        speed = Math.max(700, speed - 150);
+
+        if (score === 10) {
+            winGame();
+            return;
+        }
+
+        countdownThenNext();
+
+    } else {
+        gameOver("How disappointing… that was not the letter requested.");
+    }
+});
+
+function winGame() {
+    playing = false;
+    clearTimeout(timer);
+
+    document.getElementById("command").textContent =
+        "Exquisite reflexes! Lady Whistledown grants you passage to the next chamber.";
+
+    // ✅ Hide start button
+    document.getElementById("startBtn").style.display = "none";
+
+    // ✅ Show next room button
+    document.getElementById("nextRoomBtn").style.display = "inline-block";
+}
+
+function gameOver(message) {
+    playing = false;
+    clearTimeout(timer);
+    document.getElementById("command").textContent = message;
+}
+
+function goToNextRoom() {
+    window.location.href = "memory.html";
+}
+</script>
+
+</body>
+</html>

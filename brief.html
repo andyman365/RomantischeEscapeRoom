@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finale Kamer – Romantische Escape Room</title>
+<style>
+body {
+    margin:0;
+    font-family: 'Georgia', serif;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+    color:white;
+}
+
+body::before {
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(255,255,255,0.4);
+    z-index:0;
+}
+
+body {
+    background: url('images/oranjerie.jpg') center/cover no-repeat;
+    z-index:-1;
+}
+
+.container {
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:40px;
+}
+
+h1 {
+    font-size:36px;
+    max-width:800px;
+    line-height:1.5;
+    background: rgba(0,0,0,0.5);
+    padding:20px;
+    border-radius:10px;
+}
+
+#letter-img {
+    width:400px;
+    max-width:90%;
+    border:3px solid white;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#overlay {
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    overflow:hidden;
+    cursor:grab;
+}
+
+#zoomed-img {
+    max-width:90%;
+    max-height:90%;
+    border:3px solid white;
+    border-radius:10px;
+    box-shadow: 0 0 20px black;
+    cursor:grab;
+    transition: transform 0.1s;
+    transform: scale(1) translate(0px,0px);
+}
+
+#getRewardBtn {
+    padding:20px 40px;
+    font-size:28px;
+    background:white;
+    color:black;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#getRewardBtn:hover {
+    background:orange;
+    color:white;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Congratulations! You've solved the final puzzle.</h1>
+    <img id="letter-img" src="images/brief.jpg" alt="Brief van papa">
+    <button id="getRewardBtn">Get your reward</button>
+</div>
+
+<div id="overlay">
+    <img id="zoomed-img" src="" alt="Vergrote brief">
+</div>
+
+<script>
+const letterImg = document.getElementById('letter-img');
+const overlay = document.getElementById('overlay');
+const zoomedImg = document.getElementById('zoomed-img');
+const getRewardBtn = document.getElementById('getRewardBtn');
+
+let scale = 1;
+let offsetX = 0;
+let offsetY = 0;
+let startX = 0;
+let startY = 0;
+let isDragging = false;
+const scaleStep = 0.1;
+const scaleMin = 0.5;
+const scaleMax = 3;
+
+// Reward knop
+getRewardBtn.addEventListener('click', () => {
+    window.location.href = 'reward.html';
+});
+
+// Klik op brief opent lightbox
+letterImg.addEventListener('click', () => {
+    zoomedImg.src = letterImg.src;
+    overlay.style.display = 'flex';
+    scale = 1;
+    offsetX = 0;
+    offsetY = 0;
+    updateTransform();
+});
+
+// Klik op overlay sluit lightbox
+overlay.addEventListener('click', (e) => {
+    if(e.target === overlay){ // alleen als buiten afbeelding geklikt
+        overlay.style.display = 'none';
+        zoomedImg.src = '';
+    }
+});
+
+// Ctrl + scroll zoom
+overlay.addEventListener('wheel', (e) => {
+    if(!e.ctrlKey) return;
+    e.preventDefault();
+    const prevScale = scale;
+    if(e.deltaY < 0) scale += scaleStep;
+    else scale -= scaleStep;
+    if(scale < scaleMin) scale = scaleMin;
+    if(scale > scaleMax) scale = scaleMax;
+
+    // Optioneel: houd cursorpositie tijdens zoom
+    const rect = zoomedImg.getBoundingClientRect();
+    const dx = (e.clientX - rect.left - rect.width/2) / prevScale;
+    const dy = (e.clientY - rect.top - rect.height/2) / prevScale;
+    offsetX -= dx * (scale - prevScale);
+    offsetY -= dy * (scale - prevScale);
+
+    updateTransform();
+});
+
+// Drag-to-pan
+zoomedImg.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+    overlay.style.cursor = 'grabbing';
+});
+
+window.addEventListener('mousemove', (e) => {
+    if(!isDragging) return;
+    offsetX = e.clientX - startX;
+    offsetY = e.clientY - startY;
+    updateTransform();
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+    overlay.style.cursor = 'grab';
+});
+
+// Update transform
+function updateTransform(){
+    zoomedImg.style.transform = `scale(${scale}) translate(${offsetX/scale}px, ${offsetY/scale}px)`;
+}
+</script>
+
+</body>
+</html>

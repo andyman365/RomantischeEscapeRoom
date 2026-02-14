@@ -2,7 +2,7 @@
    BIBLIOTHEEK ROOM
 ========================= */
 body.library-room {
-    background: url('images/library-bg.jpg') center/cover no-repeat;
+    background: url('images/library.jpg') center/cover no-repeat;
     min-height: 100vh;
     position: relative;
     color: #3e2b2b;

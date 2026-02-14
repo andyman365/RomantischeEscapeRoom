@@ -1,158 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
-<title>Lady Whistledown's Reflex Trial</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voorlaatste Kamer</title>
 
 <style>
-body {
-    font-family: Georgia, serif;
-    background: linear-gradient(to bottom, #f4ead9, #e8dcc7);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    text-align: center;
-    color: #2c1f0e;
+body{
+    margin:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
 }
 
-h1 { margin-bottom: 10px; }
-
-#command {
-    font-size: 36px;
-    margin: 30px;
-    padding: 30px 50px;
-    background-color: #fff8e6;
-    border: 3px solid #d4c0a1;
-    border-radius: 15px;
-    min-width: 400px;
-    transition: all 0.3s ease;
+.room-container{
+    position:relative;
+    width:100%;
 }
 
-#score {
-    font-size: 18px;
-    margin-top: 10px;
+.room-image{
+    display:block;
+    width:100%;
+    height:auto;
 }
 
-button {
-    margin-top: 25px;
-    padding: 12px 30px;
-    font-size: 18px;
-    background-color: #fff8e6;
-    border: 2px solid #d4c0a1;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: Georgia, serif;
+/* Klikzones */
+.clue{
+    position:absolute;
+   /* border:3px solid red;  tijdelijk zichtbaar 
+    background:rgba(255,0,0,0.15); 
+    box-sizing:border-box;
+    cursor:pointer; 
+    transition:0.3s;*/
 }
 
-button:hover { background-color: #fbeec1; }
+/* .clue:hover{
+    outline:3px solid rgba(255,255,255,0.5);
+}
+    
+*/
 
-.countdown {
-    font-size: 80px !important;
-    animation: zoomFade 0.7s ease forwards;
+/* Gevonden clue */
+.clue.found{
+    border:3px solid lime;
+    background:rgba(0,255,0,0.2);
+    cursor:default;
+    pointer-events:none;
 }
 
-@keyframes zoomFade {
-    0% { transform: scale(0.5); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+/* Popup */
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:#111;
+    padding:30px;
+    border:3px solid white;
+    display:none;
+    z-index:1000;
+    max-width:600px;
+    width:80%;
+    text-align:center;
+}
+
+.popup img{
+    width:100%;
+    margin-bottom:20px;
+}
+
+#popupText{
+    font-size:40px;
+    line-height:1.6;
+    color: #e6dede;
+}
+
+.close-btn{
+    margin-top:20px;
+    padding:10px 20px;
+    background:white;
+    color:black;
+    border:none;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.close-btn:hover{
+    background:pink;
+}
+
+/* Overlay */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    z-index:999;
+}
+
+/* Teller */
+/* Teller */
+.counter{
+    position:absolute;
+    top:40px; /* iets meer naar beneden */
+    left:50%; /* gecentreerd horizontaal */
+    transform: translateX(-50%); /* horizontaal centreren */
+    background:rgba(0,0,0,0.7);
+    padding:15px 25px; /* iets groter */
+    border:2px solid white;
+    font-size:24px; /* groter */
+    border-radius:10px; /* optioneel, mooier rond */
+    text-align:center;
+    color: #e6dede;
+    z-index: 10;
+}
+
+
+/* Volgende knop – nu gecentreerd en groot */
+.next-btn{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:25px 40px;
+    font-size:32px;
+    background:white;
+    color:black;
+    border:none;
+    cursor:pointer;
+    display:none;
+    z-index:1001;
+    border-radius:15px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.8);
+    text-align:center;
+}
+
+.next-btn:hover{
+    background:pink;
+    box-shadow: 0 0 30px rgba(255,182,193,0.9);
 }
 </style>
 </head>
 
 <body>
 
-<h1>Lady Whistledown's Reflex Trial</h1>
-<p>Press the requested letter with utmost haste…</p>
+<div class="room-container">
 
-<div id="command">Press Start</div>
-<div id="score">Score: 0</div>
-<button onclick="startGame()">Begin the Trial</button>
+    <img src="images/eindhoven.jpg" class="room-image">
+
+    <div class="counter">Clues gevonden: <span id="score">0</span> / 7</div>
+
+    <!-- Klikzones -->
+    <div class="clue" id="paal" style="top:10%; left:41%; width:4.5%; height:80%;" onclick="openClue('paal')"></div>
+    <div class="clue" id="haardvuur" style="top:75%; left:0%; width:15%; height:20%;" onclick="openClue('haardvuur')"></div>
+    <div class="clue" id="tafel" style="top:48%; left:62%; width:12%; height:7%;" onclick="openClue('tafel')"></div>
+    <div class="clue" id="nachtkastje" style="top:85%; left:85%; width:15%; height:12%;" onclick="openClue('nachtkastje')"></div>
+    <div class="clue" id="kussen" style="top:65%; left:95%; width:5%; height:10%;" onclick="openClue('kussen')"></div>
+    <div class="clue" id="ijskast" style="top:45%; left:65%; width:2%; height:2%;" onclick="openClue('ijskast')"></div>
+    <div class="clue" id="bureau" style="top:49%; left:38%; width:2.5%; height:5%;" onclick="openClue('bureau')"></div>
+
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="popup" id="popup">
+    <img id="popupImg" src="">
+    <div id="popupText"></div>
+    <button class="close-btn" onclick="closePopup()">Sluiten</button>
+</div>
+
+<button class="next-btn" id="nextBtn" onclick="goToFinal()">❤️ Ga naar de laatste kamer ❤️</button>
 
 <script>
-const letters = ["a", "s", "d", "f", "o", "u"];
 
-let currentLetter;
-let score = 0;
-let speed = 2000;
-let playing = false;
-let timer = null;
-let countingDown = false;
-
-function startGame() {
-    score = 0;
-    speed = 2000;
-    playing = true;
-    document.getElementById("score").textContent = "Score: 0";
-    countdownThenNext();
-}
-
-function countdownThenNext() {
-    clearTimeout(timer);
-    countingDown = true;
-
-    let count = 3;
-    const commandDiv = document.getElementById("command");
-
-    commandDiv.classList.add("countdown");
-    commandDiv.textContent = count;
-
-    const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-            commandDiv.textContent = count;
-        } else {
-            clearInterval(interval);
-            commandDiv.classList.remove("countdown");
-            countingDown = false;
-            nextCommand();
-        }
-    }, 800);
-}
-
-function nextCommand() {
-    currentLetter = letters[Math.floor(Math.random() * letters.length)];
-    document.getElementById("command").textContent =
-        "Press '" + currentLetter.toUpperCase() + "' at once!";
-
-    timer = setTimeout(() => {
-        if (playing) {
-            gameOver("Too slow, my dear… swiftness is everything.");
-        }
-    }, speed);
-}
-
-document.addEventListener("keydown", function(e) {
-    if (!playing || countingDown) return;
-
-    if (e.key.toLowerCase() === currentLetter) {
-
-        clearTimeout(timer);
-
-        score++;
-        document.getElementById("score").textContent = "Score: " + score;
-
-        speed = Math.max(700, speed - 150);
-
-        if (score === 10) {   // ⬅ slightly higher target since harder
-            gameOver("Exquisite reflexes! Lady Whistledown is most impressed.");
-            return;
-        }
-
-        countdownThenNext();
-
-    } else {
-        gameOver("How disappointing… that was not the letter requested.");
+const clues = {
+    paal: {
+        img: "images/paal.png",
+        text: 'Boodschap van papa:<br><br>Deze paal gaan we zeker nog eens bezoeken.'
+    },
+    haardvuur: {
+        img: "images/fireplace2.png",
+        text: 'Boodschap van papa:<br><br>Ik vond het heel gezellig. En je was heel goed in het haardvuur aankrijgen.'
+    },
+    tafel: {
+        img: "images/ontbijt.png",
+        text: 'Boodschap van papa:<br><br>Samen ontbijten vond ik echt leuk en gaan we later in ons huis elke dag doen.'
+    },
+    nachtkastje: {
+        img: "images/speen.png",
+        text: 'Boodschap van papa:<br><br>Oops wat ligt hier nu.... GEIL'
+    },
+    kussen: {
+        img: "images/speeltje.png",
+        text: 'Boodschap van papa:<br><br>Ik vind het geil om jou te zien genieten.'
+    },
+    ijskast: {
+        img: "images/sushi.png",
+        text: 'Boodschap van papa:<br><br>Het universum was jou weer goed gezind. Volgende keer dat we naar deze BNB komen, nemen we terug deze TooGoodToGo.'
+    },
+    bureau: {
+        img: "images/dagboek.png",
+        text: 'Boodschap van papa:<br><br>Ik merk jouw liefde in vele dingen. Ik hou heel veel van jou.'
     }
-});
+};
 
-function gameOver(message) {
-    playing = false;
-    clearTimeout(timer);
-    document.getElementById("command").textContent = message;
+let found = [];
+
+function openClue(name){
+
+    if(found.includes(name)) return;
+
+    found.push(name);
+
+    document.getElementById("score").innerText = found.length;
+
+    // Markeer als gevonden
+    document.getElementById(name).classList.add("found");
+
+    if(found.length === 7){
+        document.getElementById("nextBtn").style.display = "block";
+    }
+
+    document.getElementById("popupImg").src = clues[name].img;
+    document.getElementById("popupText").innerHTML = clues[name].text;
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
 }
+
+function closePopup(){
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
+function goToFinal(){
+    window.location.href = "finale.html";
+}
+
 </script>
 
 </body>

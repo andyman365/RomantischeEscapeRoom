@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finale Kamer – Romantische Escape Room</title>
+<style>
+/* Body met achtergrondfoto */
+body {
+    margin:0;
+    font-family: 'Georgia', serif;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    padding:20px;
+    color:white;
+    position:relative;
+    overflow:hidden;
+}
+
+/* Semi-transparante overlay voor lichter/faded effect */
+body::before {
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(255,255,255,0.4); /* meer wit en transparant */
+    z-index:0;
+}
+
+body {
+    background: url('images/oranjerie.jpg') center/cover no-repeat;
+    z-index:-1;
+}
+
+/* Container voor titel en letterboxen boven overlay */
+h1 {
+    position:relative;
+    z-index:1;
+    font-size:36px;
+    max-width:800px;
+    line-height:1.5;
+    margin-bottom:50px;
+    background: rgba(0,0,0,0.5);
+    padding:20px;
+    border-radius:10px;
+}
+
+/* Container voor woorden */
+#answer-area {
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:15px;
+}
+
+/* Elk woord in inline-flex zodat alle letters op dezelfde lijn blijven */
+.word-container {
+    display:inline-flex;
+    flex-wrap:nowrap;
+}
+
+/* Lettervakjes */
+.letter-box {
+    width:50px;
+    height:60px;
+    text-align:center;
+    font-size:32px;
+    margin:3px;
+    text-transform: uppercase;
+    border:none;
+    border-bottom:2px solid white;
+    background: rgba(0,0,0,0.5); /* donker, semi-transparant zodat contrast goed is */
+    color:white;
+}
+
+/* Submit knop */
+#submitBtn {
+    position:relative;
+    z-index:1;
+    margin-top:40px;
+    padding:15px 30px;
+    font-size:24px;
+    cursor:pointer;
+    background:white;
+    color:black;
+    border:none;
+    border-radius:5px;
+}
+
+#submitBtn:hover {
+    background:pink;
+}
+
+/* Feedback */
+#feedback {
+    position:relative;
+    z-index:1;
+    margin-top:20px;
+    font-size:28px;
+}
+</style>
+</head>
+<body>
+
+<h1>Very good! You can see how much you love each other.<br>Last question: How much does papa love you?</h1>
+
+<div id="answer-area">
+    <!-- Word 1: VAN -->
+    <div class="word-container">
+        <input type="text" maxlength="1" class="letter-box" data-letter="V">
+        <input type="text" maxlength="1" class="letter-box" data-letter="A">
+        <input type="text" maxlength="1" class="letter-box" data-letter="N">
+    </div>
+
+    <!-- Word 2: HIER -->
+    <div class="word-container">
+        <input type="text" maxlength="1" class="letter-box" data-letter="H">
+        <input type="text" maxlength="1" class="letter-box" data-letter="I">
+        <input type="text" maxlength="1" class="letter-box" data-letter="E">
+        <input type="text" maxlength="1" class="letter-box" data-letter="R">
+    </div>
+
+    <!-- Word 3: TOT -->
+    <div class="word-container">
+        <input type="text" maxlength="1" class="letter-box" data-letter="T">
+        <input type="text" maxlength="1" class="letter-box" data-letter="O">
+        <input type="text" maxlength="1" class="letter-box" data-letter="T">
+    </div>
+
+    <!-- Word 4: HELEMAAL -->
+    <div class="word-container">
+        <input type="text" maxlength="1" class="letter-box" data-letter="H">
+        <input type="text" maxlength="1" class="letter-box" data-letter="E">
+        <input type="text" maxlength="1" class="letter-box" data-letter="L">
+        <input type="text" maxlength="1" class="letter-box" data-letter="E">
+        <input type="text" maxlength="1" class="letter-box" data-letter="M">
+        <input type="text" maxlength="1" class="letter-box" data-letter="A">
+        <input type="text" maxlength="1" class="letter-box" data-letter="A">
+        <input type="text" maxlength="1" class="letter-box" data-letter="L">
+    </div>
+
+    <!-- Word 5: DAAR -->
+    <div class="word-container">
+        <input type="text" maxlength="1" class="letter-box" data-letter="D">
+        <input type="text" maxlength="1" class="letter-box" data-letter="A">
+        <input type="text" maxlength="1" class="letter-box" data-letter="A">
+        <input type="text" maxlength="1" class="letter-box" data-letter="R">
+    </div>
+</div>
+
+<button id="submitBtn">Submit</button>
+<p id="feedback"></p>
+
+<script>
+// auto-tab tussen letters
+const inputs = document.querySelectorAll('.letter-box');
+inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+        input.value = input.value.toUpperCase();
+        if(input.value && index < inputs.length - 1) {
+            inputs[index+1].focus();
+        }
+    });
+    input.addEventListener('keydown', (e) => {
+        if(e.key === "Backspace" && !input.value && index > 0) {
+            inputs[index-1].focus();
+        }
+    });
+});
+
+// check answer
+document.getElementById('submitBtn').addEventListener('click', () => {
+    let correct = true;
+    inputs.forEach(input => {
+        if(input.dataset.letter && input.value.toUpperCase() !== input.dataset.letter) {
+            correct = false;
+        }
+    });
+    const feedback = document.getElementById('feedback');
+    if(correct){
+        feedback.textContent = "Correct! You solved the final puzzle!";
+        feedback.style.color = "lime";
+        setTimeout(()=>{window.location.href="brief.html";},1500);
+    } else {
+        feedback.textContent = "Not correct. Try again.";
+        feedback.style.color = "red";
+    }
+});
+</script>
+
+</body>
+</html>
