@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Reward – Minecraft Server</title>
+<title>Your Reward – Minecraft Invitation</title>
 <style>
 body {
     margin:0;
@@ -12,38 +12,112 @@ body {
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    background: linear-gradient(135deg, #f2c94c, #f2994a);
-    font-family: 'Arial', sans-serif;
-    color: white;
+    background: url('images/reward.webp') center/cover no-repeat;
+    font-family: 'Georgia', serif;
+    color: #2c1f0e;
     text-align:center;
+    position: relative;
+}
+
+/* Overlay om achtergrond te vervagen en tekst leesbaar te houden */
+body::before {
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(248,229,194,0.7); /* lichte warme overlay */
+    backdrop-filter: blur(3px);
+    z-index:0;
+}
+
+h1, p, .server-box, .username-input, .submit-btn {
+    position: relative;
+    z-index:1; /* boven overlay */
 }
 
 h1 {
-    font-size:48px;
-    margin-bottom:40px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    font-size:42px;
+    margin-bottom:20px;
+    font-style:italic;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+p {
+    font-size:20px;
+    max-width:600px;
+    line-height:1.6;
+    margin-bottom:30px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
 
 .server-box {
-    background: rgba(0,0,0,0.5);
-    padding:30px 50px;
+    background: rgba(44,31,14,0.7); /* iets meer opacity voor leesbaarheid */
+    padding:25px 40px;
     border-radius:15px;
-    font-size:36px;
-    border: 2px solid white;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    font-size:28px;
+    border: 2px solid #d4c0a1;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    margin-bottom:25px;
+    transition:0.3s;
 }
 
 .server-box:hover {
     transform: scale(1.05);
+}
+
+.username-input {
+    padding:15px 20px;
+    font-size:22px;
+    border-radius:10px;
+    border: 2px solid #d4c0a1;
+    outline:none;
+    text-align:center;
+    margin-bottom:20px;
+    background: rgba(255,255,255,0.8); /* lichte achtergrond voor leesbaarheid */
+    color: #2c1f0e;
+}
+
+.username-input:focus {
+    border-color: #f2c094;
+}
+
+.submit-btn {
+    padding:15px 30px;
+    font-size:22px;
+    border:none;
+    border-radius:10px;
+    background: rgba(242,192,148,0.9);
+    color:#2c1f0e;
+    cursor:pointer;
+    font-family: Georgia, serif;
     transition:0.3s;
+}
+
+.submit-btn:hover {
+    background: rgba(248,229,194,0.95);
 }
 </style>
 </head>
 <body>
 
-<h1>Congratulations!</h1>
-<div class="server-box">mc.example-server.com</div>
-<p>Let's play Minecraft together!</p>
+<h1>Congratulations, My Dearest!</h1>
+<p>Your love knows no boundaries, and even in the realm of Minecraft, you shall soar high. Fill in your Minecraft username below, and you shall receive a personal invitation to join the server and continue your adventures.</p>
+
+
+
+<input type="text" id="username" class="username-input" placeholder="Enter your Minecraft username">
+
+<button class="submit-btn" onclick="submitUsername()">Receive Invitation</button>
+
+<script>
+function submitUsername() {
+    const username = document.getElementById('username').value.trim();
+    if(username === "") {
+        alert("Dearest, do fill in your Minecraft username!");
+        return;
+    }
+    alert("Splendid, " + username + "! Your invitation has been sent. Prepare to fly high!");
+}
+</script>
 
 </body>
 </html>
