@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Escape Room - Kamer 3 Office</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: sans-serif;
+  }
+
+  .room-container {
+    position: relative;
+    width: 80%;
+    max-width: 1200px;
+  }
+
+  svg.room-svg {
+    width: 100%;
+    display: block;
+  }
+
+  /* DEBUG: rode randen voor alle rects */
+  rect {
+    cursor: pointer;
+    stroke: red;
+    stroke-width: 2px;
+    fill: rgba(255,0,0,0.2);
+  }
+
+  /* Algemene popup styling */
+  .popup {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    flex-direction: column;
+    z-index: 100;
+    text-align: center;
+  }
+
+  .popup p {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .popup button {
+    margin-top:10px;
+    padding: 5px 15px;
+    font-size:16px;
+    cursor: pointer;
+  }
+
+  /* Grote sleutel flits animatie */
+  @keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  #bigKeyImage {
+    animation: flash 0.6s ease-in-out 3; /* 3 keer flitsen */
+    width: 200px;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="room-container">
+    <svg class="room-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+        <!-- Achtergrond afbeelding -->
+        <image id="roomImage" href="images/office_desk_full.png" x="0" y="0" width="1200" height="800" preserveAspectRatio="xMidYMid slice" />
+
+        <!-- Klikbare objecten met jouw posities -->
+        <rect id="door" x="990" y="290" width="90" height="65" fill="transparent" stroke="none" />
+        <rect id="drawer" x="710" y="515" width="60" height="40" fill="transparent" stroke="none"/>
+        <rect id="papers" x="200" y="410" width="290" height="120" fill="transparent" stroke="none"/>
+        <rect id="key" x="265" y="490" width="80" height="40" fill="transparent" stroke="none"/>
+        <rect id="book" x="200" y="150" width="60" height="40" fill="transparent" stroke="none"/>
+    </svg>
+</div>
+
+<!-- Popup voor deur code -->
+<div class="popup" id="doorPopup">
+    <p>Voer de code in om de deur te openen:</p>
+    <input type="text" id="doorCodeInput" placeholder="Code">
+    <button onclick="checkDoorCode()">Open Deur</button>
+    <button onclick="closeDoorPopup()">Sluiten</button>
+</div>
+
+<!-- Popup voor grote sleutel -->
+<div class="popup" id="keyPopup">
+    <img src="images/BigKey.jpg" alt="Grote sleutel" id="bigKeyImage">
+</div>
+
+<!-- Algemene meldingen popup -->
+<div class="popup" id="messagePopup">
+    <p id="messageText"></p>
+    <button onclick="closeMessagePopup()">OK</button>
+</div>
+
+<script>
+let papersRemoved = false;
+let hasDeskKey = false;
+let hasDoorKey = false;
+
+// Functies voor algemene meldingen
+function showMessage(msg) {
+    const popup = document.getElementById('messagePopup');
+    const text = document.getElementById('messageText');
+    text.textContent = msg;
+    popup.style.display = 'flex';
+}
+
+function closeMessagePopup() {
+    document.getElementById('messagePopup').style.display = 'none';
+}
+
+// Papieren klik
+document.getElementById('papers').addEventListener('click', () => {
+    if (hasDeskKey) return; // mag niet meer klikken als sleutel al gepakt
+    const img = document.getElementById('roomImage');
+    img.setAttribute('href', 'images/office_desk_no_papers_with_key.png');
+    papersRemoved = true;
+});
+
+// Sleutel op bureau klik
+document.getElementById('key').addEventListener('click', () => {
+    if (!papersRemoved) return; // papieren nog niet weg
+    if (!hasDeskKey) {
+        hasDeskKey = true;
+
+        // Foto eerst veranderen
+        document.getElementById('roomImage').setAttribute('href', 'images/office_desk_no_papers.png');
+
+        // Meld popup na kleine timeout
+        setTimeout(() => {
+            showMessage("Je hebt de sleutel van de lade!");
+        }, 50);
+
+        // Papieren en sleutel "deactiveren"
+        document.getElementById('papers').style.pointerEvents = 'none';
+        document.getElementById('key').style.pointerEvents = 'none';
+    }
+});
+
+// Lade klik
+document.getElementById('drawer').addEventListener('click', () => {
+    if (!hasDeskKey) {
+        showMessage("Je hebt niet de juiste sleutel voor de lade!");
+        return;
+    }
+
+    hasDoorKey = true;
+
+    // Popup tonen met grote sleutel
+    const keyPopup = document.getElementById('keyPopup');
+    keyPopup.style.display = 'flex';
+
+    // Meld popup met OK-knop
+    setTimeout(() => {
+        showMessage("De lade gaat open! Je hebt de grote sleutel gevonden!");
+    }, 100);
+
+    // Popup groot sleutel automatisch sluiten na 2 seconden
+    setTimeout(() => {
+        keyPopup.style.display = 'none';
+    }, 2000);
+});
+
+// Deur klik
+document.getElementById('door').addEventListener('click', () => {
+    if (!hasDoorKey) {
+        showMessage("Je hebt nog geen sleutel voor de deur!");
+        return;
+    }
+    document.getElementById('doorPopup').style.display = 'flex';
+});
+
+// Boek klik
+document.getElementById('book').addEventListener('click', () => {
+    showMessage("Het boek onthult een code: 6769");
+});
+
+// Popup functies voor deurcode
+function checkDoorCode() {
+    const input = document.getElementById('doorCodeInput').value;
+    if (input === "6769") {
+        showMessage("De deur gaat open! Je hebt Kamer 3 voltooid!");
+        closeDoorPopup();
+        // Hier kan je doorsturen naar kamer 4
+        window.location.href='bibliotheek.html';
+    } else {
+        showMessage("Verkeerde code!");
+    }
+}
+
+function closeDoorPopup() {
+    document.getElementById('doorPopup').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

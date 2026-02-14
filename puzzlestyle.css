@@ -1,0 +1,323 @@
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   Algemene styling
+========================= */
+body {
+    font-family: 'Playfair Display', serif;
+    color: #3d2c2a;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Links / buttons algemeen */
+a, button {
+    font-family: inherit;
+    font-size: 1rem;
+    color: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* =========================
+   LANDING PAGE
+========================= */
+
+body.landing-page {
+    background: url('images/bg.png') center/cover no-repeat;
+    height: 100vh;
+    filter: brightness(1.2);
+}
+
+body.landing-page header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+body.landing-page header .overlay {
+    background: rgba(255,245,240,0.7);
+    padding: 50px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+header .title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    margin: 0;
+    color: #6b2d2a;
+}
+
+header .subtitle {
+    font-size: 1.5rem;
+    margin: 10px 0 20px;
+    color: #8b5e58;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+header .btn {
+    text-decoration: none;
+    background: #6b2d2a;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+header .btn:hover {
+    background: #8b5e58;
+}
+
+/* =========================
+   LETTER POPUP
+========================= */
+
+.letter-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    max-width: 90vw;
+    height: 85vh;
+    max-height: 90vh;
+    background: #fff0f5;
+    border-radius: 12px;
+    box-shadow: 0 0 2vw rgba(0,0,0,0.5);
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+    overflow: hidden;
+    z-index: 100;
+}
+
+.img-container {
+    width: 80%;
+    height: calc(100% - 80px);
+    overflow: auto;
+}
+
+.img-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.letter-popup button {
+    width: 70%;
+    max-width: 500px;
+    margin-top: 10px;
+    padding: 12px 0;
+    font-size: 2rem;
+    background: #6b2d2a;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.letter-popup button:hover {
+    background: #8b5e58;
+}
+
+/* =========================
+   BIBLIOTHEEK ROOM
+========================= */
+
+body.library-room {
+    background: url('images/library-bg.jpg') center/cover no-repeat;
+    min-height: 100vh;
+    position: relative;
+    color: #3e2b2b;
+}
+
+/* Soft overlay */
+body.library-room::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 0;
+}
+
+.library-room .room-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 80px 20px 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Whistledown box */
+.whistledown-box {
+    background: rgba(255, 245, 240, 0.95);
+    padding: 50px;
+    width: 65%;
+    max-width: 850px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    margin-bottom: 50px;
+}
+
+.whistledown-box h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: #7b2e2e;
+}
+
+.whistledown-text {
+    margin-top: 25px;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* Puzzle */
+.puzzle-container {
+    background: rgba(255, 255, 255, 0.95);
+    width: 75%;
+    max-width: 1000px;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-container h2 {
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    color: #5a1f1f;
+}
+
+.crossword-placeholder {
+    background: #f4dcdc;
+    padding: 60px;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+}
+
+/* Code */
+.code-section input {
+    width: 60%;
+    max-width: 400px;
+    padding: 14px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 2px solid #caa4a4;
+    text-align: center;
+}
+
+.code-section button {
+    margin-left: 15px;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    background: #7b2e2e;
+    color: white;
+    border-radius: 10px;
+}
+
+.code-section button:hover {
+    background: #a55555;
+}
+
+#feedback {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+
+/* =========================
+   CROSSWORD
+========================= */
+
+.crossword-wrapper {
+    margin-bottom: 40px;
+}
+
+.clues {
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+    text-align: left;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.crossword-grid {
+    display: inline-block;
+}
+
+.crossword-grid input {
+    width: 55px;
+    height: 55px;
+    margin: 4px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px solid #caa4a4;
+    border-radius: 8px;
+    background: #fff;
+    transition: 0.2s ease;
+}
+
+.crossword-grid input:focus {
+    border-color: #7b2e2e;
+    box-shadow: 0 0 10px rgba(123,46,46,0.3);
+    outline: none;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .whistledown-box,
+    .puzzle-container {
+        width: 90%;
+        padding: 35px;
+    }
+
+    header .title {
+        font-size: 3rem;
+    }
+
+    header .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .whistledown-box h1 {
+        font-size: 3rem;
+    }
+
+    .whistledown-text {
+        font-size: 1.2rem;
+    }
+
+    .code-section input {
+        width: 85%;
+        margin-bottom: 15px;
+    }
+
+    .code-section button {
+        display: block;
+        margin: 0 auto;
+    }
+}
